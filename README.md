@@ -105,6 +105,7 @@ ChipWatch AI uses only publicly available information. It does not have access t
 - The platform does not predict shortages or production losses.
 - GDELT is a free public service with strict rate limits and occasional downtime; the app will fall back to cached sample data when it is unavailable.
 - Only article metadata (headlines, links, dates) is stored, never full copyrighted article text.
+- Samsung Electronics also sells consumer electronics, so some Samsung results may not relate to semiconductors. Searches are narrowed with chip-related keywords, and remaining false matches are handled during analyst review.
 
 Hypothetical supply chain simulations are excluded from the MVP.
 

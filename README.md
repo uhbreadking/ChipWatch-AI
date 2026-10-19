@@ -177,7 +177,7 @@ python -m scripts.try_gdelt
 - [x] Configure Python development environment
 - [x] Create project structure
 - [ ] Connect to the GDELT API *(code written, testing in progress)*
-- [ ] Build verified company reference file
+- [x] Build verified company reference file
 - [ ] Retrieve real semiconductor news articles
 - [ ] Build 30-day news attention chart
 - [ ] Display source-linked articles in Streamlit

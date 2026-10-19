@@ -17,7 +17,7 @@ ChipWatch AI collects public news about six real semiconductor companies, tracks
 | Python environment and project structure | ✅ Done |
 | GDELT news attention fetcher (`src/fetch_news.py`) | 🔄 Code written; testing paused due to GDELT rate limits |
 | Article list fetcher (headlines and source links) | ⬜ Next |
-| Streamlit dashboard with 30-day news attention chart | ⬜ Planned |
+| Streamlit dashboard with 30-day news attention chart | ⬜ Waiting on GDELT data |
 | Rule-based disruption flagging | ⬜ Planned |
 | Machine learning classifier | ⬜ Planned |
 

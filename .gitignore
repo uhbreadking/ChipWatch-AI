@@ -1,10 +1,10 @@
 .venv/
-    # Your virtual environment, with all the installed packages
+#Your virtual environment, with all the installed packages
 __pycache__/
-    #Folders Python creates automatically when it runs your code
+#Folders Python creates automatically when it runs your code
 *.pyc
-    #The compiled files inside those cache folders
+#The compiled files inside those cache folders
 .env
-    #A common file for storing passwords and API keys
+#A common file for storing passwords and API keys
 .streamlit/secrets.toml
-    #Streamlits own place for secrets
+#Streamlits own place for secrets

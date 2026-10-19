@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+from src.match_companies import load_aliases, match_companies
+from src.classify_rules import classify_headline
 
 st.set_page_config(page_title="ChipWatch AI", layout="wide")
 
@@ -37,3 +39,31 @@ st.info("Coming soon: daily article counts from GDELT.")
 
 st.subheader("Recent articles")
 st.info("Coming soon: source-linked headlines for the selected company.")
+
+st.divider()
+
+st.subheader("Headline tester")
+st.caption("Try the company matching and keyword rules on any headline. Results are first-pass leads, not confirmed disruptions.")
+
+headline = st.text_input("Headline", placeholder="e.g. TSMC halts production after earthquake")
+
+if headline:
+    aliases = load_aliases()
+    matched = match_companies(headline, aliases)
+    label, terms = classify_headline(headline)
+
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.write("**Companies detected**")
+        if matched:
+            names = companies[companies["company_id"].isin(matched)]["company_name"]
+            st.write(", ".join(names))
+        else:
+            st.write("None")
+    with col_b:
+        st.write("**Candidate category**")
+        st.write(label)
+
+    if terms:
+        st.write(f"**Why flagged:** matched {', '.join(terms)}")
+    st.caption("Review status: unreviewed")

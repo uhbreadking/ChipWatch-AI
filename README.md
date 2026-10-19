@@ -184,7 +184,7 @@ python -m scripts.try_gdelt
 
 ### Phase 2: Disruption Identification
 - [ ] Define disruption categories and labeling guidelines
-- [ ] Implement keyword-based classification
+- [x] Implement keyword-based classification
 - [ ] Hand-label 150–200 headlines
 - [ ] Train and evaluate a machine learning classifier
 

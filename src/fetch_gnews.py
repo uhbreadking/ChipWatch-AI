@@ -51,3 +51,21 @@ def get_gnews_articles(query, max_articles=10):
     df["fetched_at"] = pd.Timestamp.now(tz="UTC")
     df = df.sort_values("published_at", ascending=False)
     return df.reindex(columns=columns).reset_index(drop=True), total
+
+def count_articles_on_day(query, day):
+    """Return how many articles GNews found for a query on one UTC day (format: 'YYYY-MM-DD')."""
+    start = pd.Timestamp(day, tz="UTC")
+    end = start + pd.Timedelta(days=1)
+    params = {
+        "q": query,
+        "lang": "en",
+        "max": 1,
+        "from": start.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "to": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "apikey": _api_key(),
+    }
+    resp = requests.get(URL, params=params, timeout=30)
+    if resp.status_code != 200:
+        raise RuntimeError(f"GNews request failed (status {resp.status_code}): {resp.text[:200]}")
+    return resp.json().get("totalArticles", 0)
+#tests a single-day, returns totalArticles as a single number

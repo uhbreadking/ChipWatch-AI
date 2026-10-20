@@ -1,7 +1,7 @@
-company_id,company_name,aliases,segment,evidence_url,verified_on
-tsmc,TSMC,"TSMC; Taiwan Semiconductor",Foundry,https://www.tsmc.com/english/aboutTSMC/company_profile,2026-10-19
-asml,ASML,"ASML",Semiconductor Equipment,https://www.asml.com/en-us/about-asml/company-profile,2026-10-19
-sk_hynix,SK hynix,"SK hynix; Hynix",Memory,https://www.skhynix.com/company/UI-FR-CP02/,2026-10-19
-micron,Micron,"Micron",Memory,https://www.micron.com/about/company/corporate-profile,2026-10-19
-amkor,Amkor,"Amkor",Assembly Packaging & Test,https://amkor.com/amkor-overview/,2026-10-19
-samsung,Samsung Electronics,"Samsung Electronics; Samsung Foundry; Samsung Semiconductor","Memory; Foundry",https://www.samsung.com/us/about-us/our-business/device-solutions/,2026-10-19
+company_id,company_name,aliases,segment,evidence_url,verified_on,news_query
+tsmc,TSMC,"TSMC; Taiwan Semiconductor",Foundry,https://www.tsmc.com/english/aboutTSMC/company_profile,2026-10-19,TSMC
+asml,ASML,"ASML",Semiconductor Equipment,https://www.asml.com/en-us/about-asml/company-profile,2026-10-19,ASML
+sk_hynix,SK hynix,"SK hynix; Hynix",Memory,https://www.skhynix.com/company/UI-FR-CP02/,2026-10-19,SK hynix
+micron,Micron,"Micron",Memory,https://www.micron.com/about/company/corporate-profile,2026-10-19,Micron Technology
+amkor,Amkor,"Amkor",Assembly Packaging & Test,https://amkor.com/amkor-overview/,2026-10-19,Amkor
+samsung,Samsung Electronics,"Samsung Electronics; Samsung Foundry; Samsung Semiconductor","Memory; Foundry",https://www.samsung.com/us/about-us/our-business/device-solutions/,2026-10-19,Samsung Electronics AND (chip OR memory OR foundry)

@@ -48,7 +48,7 @@ def load_articles(query):
     return get_rss_articles(query)
 
 
-query = build_query(company["company_name"])
+query = build_query(company)
 
 
 try:

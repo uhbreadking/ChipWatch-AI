@@ -21,7 +21,7 @@ def load_existing():
 def main():
     companies = pd.read_csv("data/companies.csv")
     existing = load_existing()
-    done = set(zip(existing["company_id"], existing["date"]))
+    done = set(zip(existing["company_id"], existing["date"], existing["query"]))
 
     # Skip today and yesterday: the free plan's ~12-hour delay means they're incomplete.
     today = pd.Timestamp.now(tz="UTC").normalize()
@@ -34,9 +34,9 @@ def main():
 
     try:
         for _, company in companies.iterrows():
-            query = build_query(company["company_name"])
+            query = build_query(company)
             for day in days:
-                if (company["company_id"], day) in done:
+                if (company["company_id"], day, query) in done:
                     continue
                 if requests_made >= MAX_REQUESTS:
                     break
@@ -55,6 +55,7 @@ def main():
         if new_rows:
             new = pd.DataFrame(new_rows)
             combined = new if existing.empty else pd.concat([existing, new], ignore_index=True)
+            combined = combined.drop_duplicates(subset=["company_id", "date"], keep="last")
             combined = combined.sort_values(["company_id", "date"])
             combined.to_csv(OUTPUT, index=False)
         print(f"\nRequests used: {requests_made}. New rows saved: {len(new_rows)}.")

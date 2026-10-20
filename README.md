@@ -15,9 +15,8 @@ ChipWatch AI collects public news about six real semiconductor companies, tracks
 | Component | Status |
 |---|---|
 | Python environment and project structure | ✅ Done |
-| GDELT news attention fetcher (`src/fetch_news.py`) | 🔄 Code written; testing paused due to GDELT rate limits |
-| Article list fetcher (headlines and source links) | ⬜ Next |
-| Streamlit dashboard with 30-day news attention chart | ⬜ Waiting on GDELT data |
+| Source-linked article table with company matching and flags | ✅ Working locally (Google News RSS) |
+| Streamlit dashboard with 30-day news attention chart | ⬜ Waiting on data |
 | Rule-based disruption flagging | ⬜ Planned |
 | Machine learning classifier | ⬜ Planned |
 
@@ -57,7 +56,7 @@ flowchart LR
     G --> H[Analyst review queue]
 
     classDef planned stroke-dasharray: 5 5
-    class C,D,E,F,G,H planned
+    class C,E,F,H planned
 ```
 
 *Dashed boxes are planned and not yet built.*
@@ -164,10 +163,15 @@ python -m scripts.try_gdelt
 
 ## Data Sources
 
-- [GDELT Project](https://www.gdeltproject.org/): global news monitoring (DOC 2.0 API)
-- [TSMC Investor Relations](https://investor.tsmc.com/): company disclosures
-- [ASML Investor Relations](https://www.asml.com/en/investors): company disclosures
-- [SEC EDGAR](https://www.sec.gov/edgar/search/): public company filings
+| Source | Used for | Status |
+|---|---|---|
+| [Google News RSS](https://news.google.com/) | Recent headlines | ✅ Local development only (feed terms limit use to personal, non-commercial readers) |
+| [GNews API](https://gnews.io/) | Headlines and article counts for the public dashboard | 🔄 In progress |
+| [GDELT DOC 2.0 API](https://www.gdeltproject.org/) | Originally planned for news attention timelines | ⏸️ Paused: persistent rate limiting (Oct 2026). Code kept in `src/fetch_gdelt.py` in case access returns. |
+| [TSMC](https://investor.tsmc.com/), [ASML](https://www.asml.com/en/investors), and other official company pages | Verifying company segments in `data/companies.csv` | ✅ In use |
+| [SEC EDGAR](https://www.sec.gov/edgar/search/) | Official company filings | ⬜ Planned |
+
+**Why the data source changed:** GDELT's free API began rejecting requests from every network tested, even after waiting for hours, consistent with an extended cooldown. Rather than block the project on one free service, ChipWatch now separates local development data (Google News RSS) from deployable data (GNews), so the dashboard can keep working if any single source becomes unavailable.
 
 ---
 
@@ -178,9 +182,9 @@ python -m scripts.try_gdelt
 - [x] Create project structure
 - [ ] Connect to the GDELT API *(code written, testing in progress)*
 - [x] Build verified company reference file
-- [ ] Retrieve real semiconductor news articles
+- [x] Retrieve real semiconductor news articles
 - [ ] Build 30-day news attention chart
-- [ ] Display source-linked articles in Streamlit
+- [x] Display source-linked articles in Streamlit
 
 ### Phase 2: Disruption Identification
 - [ ] Define disruption categories and labeling guidelines

@@ -4,6 +4,7 @@ from src.fetch_rss import get_rss_articles
 from src.pipeline import enrich_articles
 from src.match_companies import load_aliases, match_companies
 from src.classify_rules import classify_headline
+from src.queries import build_query
 
 st.set_page_config(page_title="ChipWatch AI", layout="wide")
 
@@ -47,7 +48,8 @@ def load_articles(query):
     return get_rss_articles(query)
 
 
-query = f"{company['company_name']} semiconductor"
+query = build_query(company["company_name"])
+
 
 try:
     articles = load_articles(query)

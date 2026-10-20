@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+from src.fetch_rss import get_rss_articles
+from src.pipeline import enrich_articles
 from src.match_companies import load_aliases, match_companies
 from src.classify_rules import classify_headline
 
@@ -38,7 +40,48 @@ st.subheader("30-day news attention")
 st.info("Coming soon: daily article counts from GDELT.")
 
 st.subheader("Recent articles")
-st.info("Coming soon: source-linked headlines for the selected company.")
+
+
+@st.cache_data(ttl=3600)
+def load_articles(query):
+    return get_rss_articles(query)
+
+
+query = f"{company['company_name']} semiconductor"
+
+try:
+    articles = load_articles(query)
+except Exception as exc:
+    st.error(f"Could not load articles: {exc}")
+    articles = None
+
+if articles is not None and not articles.empty:
+    articles = enrich_articles(articles, load_aliases())
+
+    cutoff = pd.Timestamp.now(tz="UTC") - pd.Timedelta(days=30)
+    articles = articles[articles["published_at"] >= cutoff]
+
+    only_flagged = st.checkbox("Show only flagged headlines")
+    if only_flagged:
+        articles = articles[articles["category"] != "No signal"]
+
+    st.caption(f"{len(articles)} articles from the last 30 days · Source: Google News RSS (local development only)")
+    st.dataframe(
+        articles[["published_at", "source", "title", "companies", "category", "matched_terms", "review_status", "url"]],
+        column_config={
+            "published_at": st.column_config.DatetimeColumn("Published", format="YYYY-MM-DD HH:mm"),
+            "source": "Publisher",
+            "title": "Headline",
+            "companies": "Companies",
+            "category": "Candidate category",
+            "matched_terms": "Why flagged",
+            "review_status": "Status",
+            "url": st.column_config.LinkColumn("Link", display_text="Open"),
+        },
+        hide_index=True,
+    )
+elif articles is not None:
+    st.info("No articles found for this company.")
 
 st.divider()
 

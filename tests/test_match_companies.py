@@ -29,8 +29,10 @@ def test_ignores_partial_words():
     assert match_companies("New study links micronutrients to better sleep", ALIASES) == []
 
 
-def test_plain_samsung_is_not_matched():
-    assert match_companies("Samsung unveils new Galaxy phone", ALIASES) == []
+def test_plain_samsung_is_matched():
+    # Changed after real data showed chip news usually says plain "Samsung".
+    # Consumer news is filtered out by the search query instead.
+    assert match_companies("Samsung unveils new Galaxy phone", ALIASES) == ["samsung"]
 
 
 def test_no_company_returns_empty_list():

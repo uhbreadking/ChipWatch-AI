@@ -1,4 +1,4 @@
-from src.fetch_news import historical_attention
+from src.fetch_gdelt import historical_attention
 #go into src/fetch_news.py and bring the historical_attention function into this file so I can use it here
 query = "TSMC semiconductor"
 

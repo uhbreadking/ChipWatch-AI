@@ -103,6 +103,9 @@ Include bankruptcy, operationally significant defaults, and liquidity crises aff
 **Rule 12 — Company mentions do not prove exposure.**  
 A headline mentioning TSMC and AMD does not establish that AMD is affected by a TSMC disruption.
 
+**Rule 13 — Label the event, not the company.**  
+Disruptions at semiconductor companies outside the six monitored companies are labeled the same way. "Sony halts Kumamoto chip plant operations after earthquake" → Manufacturing / Active. Company relevance is handled by company matching, not by the label.
+
 ## 5. Sampling
 
 Disruption headlines are rare in ordinary company news. In early testing, 1 of 100 TSMC headlines and 0 of 72 Samsung headlines were disruption-related. A randomly gathered set of 150–200 headlines would contain too few disruption examples to evaluate or train a classifier.
@@ -190,3 +193,4 @@ A Manufacturing classification does not automatically establish that an actual m
 - **1.0 (October 2026):** Initial headline labeling guidelines.
 - **1.1 (October 2026):** Added event lifecycle statuses, credible developing threats, recovery tracking, refined financial criteria, event-group handling, company attribution, and evaluation controls.
 - **1.2 (October 2026):** Added sampling section (ordinary and enriched samples, reporting rule) and `sample_source` column; clarified that labels describe topic and status describes direction; made `event_status` an annotation rather than a training target; fixed Rule 7 to always use Resolved for lifted restrictions; added a concrete definition of Potential; made `mentioned_companies` and `affected_company` optional.
+- **1.3 (October 2026):** Added Rule 13: disruptions are labeled regardless of which company they affect.

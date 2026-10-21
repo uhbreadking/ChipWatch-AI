@@ -52,14 +52,16 @@ def main():
                 print(f"{company['company_id']:<10} {day}  {count}")
                 time.sleep(1.5)
     finally:
+        total = len(existing)
         if new_rows:
             new = pd.DataFrame(new_rows)
             combined = new if existing.empty else pd.concat([existing, new], ignore_index=True)
             combined = combined.drop_duplicates(subset=["company_id", "date"], keep="last")
             combined = combined.sort_values(["company_id", "date"])
             combined.to_csv(OUTPUT, index=False)
+            total = len(combined)
         print(f"\nRequests used: {requests_made}. New rows saved: {len(new_rows)}.")
-        print(f"Total rows in {OUTPUT}: {len(existing) + len(new_rows)} of {len(companies) * DAYS}.")
+        print(f"Total rows in {OUTPUT}: {total}.")
 
 
 if __name__ == "__main__":

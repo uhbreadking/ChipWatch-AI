@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd
 import streamlit as st
 from src.fetch_rss import get_rss_articles
@@ -38,7 +39,45 @@ st.markdown(f"[Official company profile]({company['evidence_url']})")
 st.divider()
 
 st.subheader("30-day news attention")
-st.info("Coming soon: daily article counts from GDELT.")
+
+ATTENTION_FILE = Path("data/attention_counts.csv")
+
+
+@st.cache_data(ttl=600)
+def load_attention():
+    if not ATTENTION_FILE.exists():
+        return pd.DataFrame(columns=["company_id", "date", "query", "count", "fetched_at"])
+    return pd.read_csv(ATTENTION_FILE)
+
+
+attention = load_attention()
+current_query = build_query(company)
+cutoff_day = (pd.Timestamp.now(tz="UTC").normalize() - pd.Timedelta(days=31)).strftime("%Y-%m-%d")
+
+company_counts = attention[
+    (attention["company_id"] == company["company_id"])
+    & (attention["query"] == current_query)
+    & (attention["date"] >= cutoff_day)
+].sort_values("date")
+
+if company_counts.empty:
+    st.info("No attention data collected yet for this company. Run `python -m scripts.collect_attention`.")
+else:
+    peak = company_counts.loc[company_counts["count"].idxmax()]
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Peak day", peak["date"])
+    m2.metric("Articles on peak day", int(peak["count"]))
+    m3.metric("Days collected", f"{len(company_counts)} of 30")
+
+    chart_data = company_counts.copy()
+    chart_data["date"] = pd.to_datetime(chart_data["date"])
+    st.bar_chart(chart_data, x="date", y="count", x_label="Date", y_label="Matching articles")
+
+    st.caption(
+        f"Daily count of GNews articles matching `{current_query}`. "
+        "This measures coverage, not risk: a spike can come from earnings, a product launch, "
+        "or repeated coverage of one story."
+    )
 
 st.subheader("Recent articles")
 

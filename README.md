@@ -108,6 +108,7 @@ These are observations from testing on real data, not formal evaluation results.
 - **Data-driven alias decision.** Plain "Samsung" was originally excluded from aliases to avoid consumer electronics news. Testing on 67 real Samsung headlines showed this missed **37 (55%)** of relevant articles, because chip journalism usually says just "Samsung." Since the search query already filters out consumer news, plain "Samsung" was added back.
 - **Query wording matters.** For TSMC on its earnings day, searching `TSMC` returned **51** articles versus **30** for `TSMC semiconductor`, which led to per-company queries.
 - **Duplicate coverage is common.** Wire stories appear many times across publishers (one Samsung story appeared 4 times in a single result set), which is why article counts and event counts must be kept separate.
+- **Chart spikes can be traced to their cause in seconds.** ASML's coverage jumped from 0–2 articles a day to **46** on October 14; the article table showed the cause was its quarterly earnings report, not a disruption.
 
 ---
 

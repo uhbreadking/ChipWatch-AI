@@ -8,3 +8,7 @@ __pycache__/
 #A common file for storing passwords and API keys
 .streamlit/secrets.toml
 #Streamlits own place for secrets
+data/attention_counts.csv
+# GNews-derived data: excluded until terms are confirmed and collection is complete
+data/labels/
+# Hand-labeled headlines: contain third-party news data, kept local

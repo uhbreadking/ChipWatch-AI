@@ -175,6 +175,7 @@ ChipWatch AI uses only publicly available information. It does not have access t
 - GNews's free plan allows about 100 requests per day and up to 10 articles per request, and delays articles by roughly 12 hours, so the dashboard is not real-time.
 - GNews daily counts are much smaller than total coverage, so the attention chart is best read as changes over time for one company, not as a comparison between companies.
 - Only article metadata (headlines, links, dates, publishers) is stored, never full article text.
+- GNews's free index covers smaller companies thinly: Amkor had only 1 matching article in 30 days, versus 100 recent Amkor headlines from Google News RSS. The dashboard warns when a company's monthly total is too low to show trends.
 
 ---
 

@@ -68,6 +68,12 @@ else:
     m1.metric("Peak day", peak["date"])
     m2.metric("Articles on peak day", int(peak["count"]))
     m3.metric("Days collected", f"{len(company_counts)} of 30")
+    total_articles = int(company_counts["count"].sum())
+    if total_articles < 10:
+        st.warning(
+            f"Only {total_articles} matching articles in this period. GNews's free index has little "
+            "coverage of this company, so this chart is too sparse to show meaningful trends."
+        )
 
     chart_data = company_counts.copy()
     chart_data["date"] = pd.to_datetime(chart_data["date"])

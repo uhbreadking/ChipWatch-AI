@@ -40,7 +40,11 @@ def main():
                     continue
                 if requests_made >= MAX_REQUESTS:
                     break
-                count = count_articles_on_day(query, day)
+                try:
+                    count = count_articles_on_day(query, day)
+                except RuntimeError as exc:
+                    print(f"\nStopped early: {exc}")
+                    return                
                 requests_made += 1
                 new_rows.append({
                     "company_id": company["company_id"],
